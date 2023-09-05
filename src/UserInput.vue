@@ -313,6 +313,7 @@ export default {
   max-height: 200px;
   overflow-x: hidden;
   overflow-y: auto;
+  border: 2px #ccc solid;
 }
 
 .sc-user-input--text:empty:before {

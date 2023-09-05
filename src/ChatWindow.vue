@@ -11,7 +11,7 @@
         <slot name="header"> </slot>
       </template>
     </Header>
-    <UserList v-if="showUserList" :colors="colors" :participants="participants" />
+    <!-- <UserList v-if="showUserList" :colors="colors" :participants="participants" /> -->
     <MessageList
       v-if="!showUserList"
       :messages="messages"
@@ -48,7 +48,6 @@
       v-if="!showUserList"
       :show-emoji="showEmoji"
       :on-submit="onUserInputSubmit"
-      :suggestions="getSuggestions()"
       :show-file="showFile"
       :placeholder="placeholder"
       :colors="colors"
@@ -102,7 +101,7 @@ export default {
     },
     isOpen: {
       type: Boolean,
-      default: () => false
+      default: () => true
     },
     placeholder: {
       type: String,
@@ -150,12 +149,14 @@ export default {
 
 <style scoped>
 .sc-chat-window {
-  width: 370px;
+  width: 600px;
   height: calc(100% - 120px);
-  max-height: 590px;
-  position: fixed;
+  max-height: 800px;
+  text-align: center;
+  /* position: fixed;
   right: 25px;
-  bottom: 100px;
+  bottom: 100px; */
+  margin: 0 auto;
   box-sizing: border-box;
   box-shadow: 0px 7px 40px 2px rgba(148, 149, 150, 0.1);
   background: white;

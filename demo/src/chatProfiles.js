@@ -7,6 +7,6 @@ export default [
   {
     id: 'support',
     name: 'Support',
-    imageUrl: 'https://avatars3.githubusercontent.com/u/37018832?s=200&v=4'
+    imageUrl: 'https://st4.depositphotos.com/10050552/24321/i/450/depositphotos_243216644-stock-illustration-wizard-and-dragon-scene-3d.jpg'
   }
 ]

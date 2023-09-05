@@ -1,19 +1,120 @@
 <template>
   <div id="app" :style="{background: backgroundColor}">
-       <router-view
-          />
+    <Header :chosen-color="chosenColor" :colors="colors" />
+    <beautiful-chat
+      :always-scroll-to-bottom="alwaysScrollToBottom"
+      :close="closeChat"
+      :colors="colors"
+      :is-open="isChatOpen"
+      :message-list="messageList"
+      :message-styling="messageStyling"
+      :new-messages-count="newMessagesCount"
+      :on-message-was-sent="onMessageWasSent"
+      :open="openChat"
+      :participants="participants"
+      :show-close-button="true"
+      :show-launcher="true"
+      :show-emoji="true"
+      :show-file="true"
+      :show-typing-indicator="showTypingIndicator"
+      :show-edition="true"
+      :show-deletion="true"
+      :title-image-url="titleImageUrl"
+      :disable-user-list-toggle="false"
+      @onType="handleOnType"
+      @edit="editMessage"
+      @remove="removeMessage"
+    >
+      <template v-slot:text-message-toolbox="scopedProps">
+        <button
+          v-if="!scopedProps.me && scopedProps.message.type === 'text'"
+          @click.prevent="like(scopedProps.message.id)"
+        >
+          👍
+        </button>
+      </template>
+      <template v-slot:text-message-body="scopedProps">
+        <p class="sc-message--text-content" v-html="scopedProps.messageText"></p>
+        <p
+          v-if="scopedProps.message.data.meta"
+          class="sc-message--meta"
+          :style="{color: scopedProps.messageColors.color}"
+        >
+          {{ scopedProps.message.data.meta }}
+        </p>
+        <p
+          v-if="scopedProps.message.isEdited || scopedProps.message.liked"
+          class="sc-message--edited"
+        >
+          <template v-if="scopedProps.message.isEdited">✎</template>
+          <template v-if="scopedProps.message.liked">👍</template>
+        </p>
+      </template>
+      <template v-slot:system-message-body="{message}"> [System]: {{ message.text }} </template>
+    </beautiful-chat>
+    <p class="text-center toggle">
+      <a v-if="!isChatOpen" :style="{color: linkColor}" href="#" @click.prevent="openChat()"
+        >Open the chat window</a
+      >
+      <a v-else :style="{color: linkColor}" href="#" @click.prevent="closeChat()"
+        >Close the chat window</a
+      >
+    </p>
+    <p class="text-center colors">
+      <a
+        :style="{background: availableColors.blue.launcher.bg}"
+        href="#"
+        @click.prevent="setColor('blue')"
+        >Blue</a
+      >
+      <a
+        :style="{background: availableColors.red.launcher.bg}"
+        href="#"
+        @click.prevent="setColor('red')"
+        >Red</a
+      >
+      <a
+        :style="{background: availableColors.green.launcher.bg}"
+        href="#"
+        @click.prevent="setColor('green')"
+        >Green</a
+      >
+      <a
+        :style="{background: availableColors.dark.launcher.bg}"
+        href="#"
+        @click.prevent="setColor('dark')"
+        >Dark</a
+      >
+    </p>
+    <v-dialog />
+    <p class="text-center messageStyling">
+      <label
+        >Message styling enabled?
+        <input checked type="checkbox" @change="messageStylingToggled" />
+      </label>
+      <a href="#" @click.prevent="showStylingInfo()">info</a>
+    </p>
+    <TestArea
+      :chosen-color="chosenColor"
+      :colors="colors"
+      :message-styling="messageStyling"
+      :on-message="sendMessage"
+      :on-typing="handleTyping"
+    />
+    <Footer :chosen-color="chosenColor" :colors="colors" />
   </div>
 </template>
 
 <script>
-import messageHistory from './messageHistory'
-import chatParticipants from './chatProfiles'
-import Header from './Header.vue'
-import Footer from './Footer.vue'
-import TestArea from './TestArea.vue'
+import messageHistory from '../../messageHistory'
+import chatParticipants from '../../chatProfiles'
+import Header from '../../Header.vue'
+import Footer from '../../Footer.vue'
+import TestArea from '../../TestArea.vue'
+import availableColors from '../../colors'
 
 export default {
-  name: 'App',
+  name: 'Server',
   components: {
     Header,
     Footer,
@@ -28,7 +129,7 @@ export default {
       isChatOpen: false,
       showTypingIndicator: '',
       colors: null,
-      // availableColors,
+      availableColors,
       chosenColor: null,
       alwaysScrollToBottom: true,
       messageStyling: true,
@@ -76,7 +177,7 @@ export default {
       this.isChatOpen = false
     },
     setColor(color) {
-      // this.colors = this.availableColors[color]
+      this.colors = this.availableColors[color]
       this.chosenColor = color
     },
     showStylingInfo() {

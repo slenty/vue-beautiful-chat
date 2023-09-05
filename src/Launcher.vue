@@ -10,8 +10,8 @@
       <div v-if="newMessagesCount > 0 && !isOpen" class="sc-new-messsages-count">
         {{ newMessagesCount }}
       </div>
-      <img v-if="isOpen" class="sc-closed-icon" :src="icons.close.img" :alt="icons.close.name" />
-      <img v-else class="sc-open-icon" :src="icons.open.img" :alt="icons.open.name" />
+      <!-- <img v-if="isOpen" class="sc-closed-icon" :src="icons.close.img" :alt="icons.close.name" />
+      <img v-else class="sc-open-icon" :src="icons.open.img" :alt="icons.open.name" /> -->
     </div>
     <ChatWindow
       :message-list="messageList"
@@ -63,7 +63,6 @@
 <script>
 import store from './store/'
 import ChatWindow from './ChatWindow.vue'
-
 import CloseIcon from './assets/close-icon.png'
 import OpenIcon from './assets/logo-no-bg.svg'
 
