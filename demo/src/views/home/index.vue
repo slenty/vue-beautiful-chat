@@ -126,12 +126,12 @@ export default {
   },
   methods: {
     /**
-     * 1. 联调一轮对话。字段对齐，需要一个author字段。目前用户:me，后端: support
+     * 1. 联调一轮对话。字段对齐, 调通接口
      * 2. 联调多轮对话。这个需要每轮对话的标识
      * 3. 联调图片
      * 
      * todo： 空文本也可让用户发送
-     * 此处调用ai文字接口, 接口参数为prompt 、 text
+     * 
      */
     getTextApi (message) {
       let historyList = []
