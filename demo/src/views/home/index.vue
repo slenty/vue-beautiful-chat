@@ -5,7 +5,7 @@
       <el-form :inline="false">
         <el-form-item >
           <!-- Prompt:  -->
-          <el-input style="width: 500px" v-model="input" type="textarea" rows="5" placeholder="请输入prompt"></el-input>
+          <el-input style="width: 500px" v-model="prompt" type="textarea" rows="5" placeholder="请输入prompt"></el-input>
           <!-- <el-button style="margin-left: 20px" type="primary">确认</el-button> -->
         </el-form-item>
     
@@ -17,7 +17,7 @@
         :colors="colors"
         :is-open="isChatOpen"
         :message-list="messageList"
-        title="Server Wizard"
+        title="Assistant Wizard"
         :message-styling="messageStyling"
         :new-messages-count="newMessagesCount"
         :on-message-was-sent="onMessageWasSent"
@@ -106,7 +106,7 @@ export default {
       alwaysScrollToBottom: true,
       messageStyling: true,
       userIsTyping: false,
-      input: ''
+      prompt: ''
     }
   },
   computed: {
@@ -128,15 +128,28 @@ export default {
     /**
      * 此处调用ai文字接口, 接口参数为prompt 、 text
      */
-    getTextApi () {
+    getTextApi (message) {
+      let historyList = []
+      for(let i = 1 ; i < this.messageList.length - 1; i++ ){
+        let item = this.messageList[i]
+        let itemNext = this.messageList[i+1]
+        if(item.data.author == 'me' &&  itemNext.data.author == 'support') {
+          historyList.push({USER: item.data.text, ASSISTANT: itemNext.data.text})
+        }
+      }
+      let params = {
+        system_prompt: this.prompt,
+        USER: message.data.text,
+        history: historyList
+      }
       axios
-        .get('https://v.api.aa1.cn/api/yiyan/index.php')
+        .post('https://v.api.aa1.cn/api/yiyan/index.php')
         .then(res => {
           // debugger
-          this.getImageApi(res.data) // 获取后端返回的文本
+       //   this.getImageApi(res.data) // 获取后端返回的文本
           // this.handleTyping('')
           // if(res.data) {
-          //    this.sendMessage(res.data)
+             this.sendMessage(res.data) // 参数是后端返回的数据文本，大概需要经过一些处理
           // }
         })
     },
@@ -162,7 +175,7 @@ export default {
       if (text.length > 0) {
         this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
         this.onMessageWasSent({
-          author: 'support',
+          author: 'ASSISTANT',
           type: url ? 'file' : 'text',
           id: Math.random(),
           data: {text, file: {url: url}}
@@ -174,11 +187,16 @@ export default {
         text.length > 0 ? this.participants[this.participants.length - 1].id : ''
     },
     onMessageWasSent(message) {
+       if(!this.prompt) {
+        this.$message.warning('请输入prompt')
+        return
+      }
+      // debugger
       console.log('message...', message)
       this.messageList = [...this.messageList, Object.assign({}, message, {id: Math.random()})]
       if(message.author == 'me') {
          this.handleTyping('testeeet')
-         this.getTextApi()
+         this.getTextApi(message)
       }
      
       // setTimeout(() => {
