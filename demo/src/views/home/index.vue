@@ -148,13 +148,13 @@ export default {
         history: historyList
       }
       axios
-        .post('https://v.api.aa1.cn/api/yiyan/index.php')
+        .post('https://v.api.aa1.cn/api/yiyan/index.php', params)
         .then(res => {
           // debugger
        //   this.getImageApi(res.data) // 获取后端返回的文本
           // this.handleTyping('')
           // if(res.data) {
-             this.sendMessage(res.data) // 参数是后端返回的数据文本，大概需要经过一些处理
+             this.sendMessage(res.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
           // }
         })
     },
