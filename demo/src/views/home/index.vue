@@ -156,7 +156,7 @@ export default {
        //   this.getImageApi(res.data) // 获取后端返回的文本
             this.handleTyping('')
           // if(res.data) {
-             this.sendMessage(res.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
+             this.sendMessage(res.data.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
           // }
         })
     },
@@ -179,7 +179,7 @@ export default {
     },
 
     sendMessage(text, url) {
-      if (text.length > 0) {
+      if (text) {
         this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
         this.onMessageWasSent({
           author: 'support',
