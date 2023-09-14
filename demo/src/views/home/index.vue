@@ -147,12 +147,14 @@ export default {
         USER: message.data.text,
         history: historyList
       }
+      console.log('用户输入=================', params)
       axios
         .post('https://v.api.aa1.cn/api/yiyan/index.php', params)
         .then(res => {
+          console.log('获取到文本数据=================', res)
           // debugger
        //   this.getImageApi(res.data) // 获取后端返回的文本
-          // this.handleTyping('')
+            this.handleTyping('')
           // if(res.data) {
              this.sendMessage(res.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
           // }
@@ -180,7 +182,7 @@ export default {
       if (text.length > 0) {
         this.newMessagesCount = this.isChatOpen ? this.newMessagesCount : this.newMessagesCount + 1
         this.onMessageWasSent({
-          author: 'ASSISTANT',
+          author: 'support',
           type: url ? 'file' : 'text',
           id: Math.random(),
           data: {text, file: {url: url}}
