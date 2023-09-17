@@ -162,14 +162,19 @@ export default {
     },
 
     /**
-     * 此处调用ai图片接口，接口参数为prompt 、 text
+     * 此处调用ai图片接口，接口参数为文本接口返回的服务器回复
      * 因为ai图片接口太慢了，所以另起一个接口
      */
     getImageApi (text) {
+       let params = {
+        ASSISTANT: text
+      }
+      console.log('调用图片接口===================', params)
       axios
-        .get('https://api.thecatapi.com/v1/images/search?limit=1')
+        .post('https://api.thecatapi.com/v1/images/search?limit=1', params)
         .then(res => {
-          let imageUrl = res.data[0].url // 获取后端返回的图片url
+          console.log('获取到图片数据=================', res)
+          let imageUrl = res.data.url // 获取后端返回的图片url
           this.handleTyping('')
           // debugger          
           if(res.data) {
