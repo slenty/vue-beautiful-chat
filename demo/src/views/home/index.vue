@@ -138,7 +138,7 @@ export default {
       for(let i = 1 ; i < this.messageList.length - 1; i++ ){
         let item = this.messageList[i]
         let itemNext = this.messageList[i+1]
-        if(item.data.author == 'me' &&  itemNext.data.author == 'support') {
+        if(item.author == 'me' &&  itemNext.author == 'support') {
           historyList.push({USER: item.data.text, ASSISTANT: itemNext.data.text})
         }
       }
@@ -149,7 +149,7 @@ export default {
       }
       console.log('用户输入=================', params)
       axios
-        .post('https://v.api.aa1.cn/api/yiyan/index.php', params)
+        .post('https://v.api.aa1.cn/api/yiyan/index.php')
         .then(res => {
           console.log('获取到文本数据=================', res)
           // debugger
