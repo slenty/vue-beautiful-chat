@@ -198,6 +198,10 @@ export default {
         this.$message.warning('请输入prompt')
         return
       }
+      if(this.showTypingIndicator) {
+        this.$message.warning('请稍后，服务器正在响应...')
+        return
+      }
       // debugger
       console.log('message...', message)
       this.messageList = [...this.messageList, Object.assign({}, message, {id: Math.random()})]
