@@ -149,7 +149,7 @@ export default {
       }
       console.log('用户输入=================', params)
       axios
-        .post('https://v.api.aa1.cn/api/yiyan/index.php')
+        .post('https://v.api.aa1.cn/api/yiyan/index.php', params)
         .then(res => {
           console.log('获取到文本数据=================', res)
           // debugger
