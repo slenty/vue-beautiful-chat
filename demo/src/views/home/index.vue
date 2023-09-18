@@ -154,10 +154,10 @@ export default {
         .then(res => {
           console.log('获取到文本数据=================', res)
           // debugger
-       //   this.getImageApi(res.data) // 获取后端返回的文本
+           this.getImageApi(res.data.ASSISTANT) // 获取后端返回的文本
             // this.handleTyping('')
           // if(res.data) {
-             this.sendMessage(res.data.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
+           this.sendMessage(res.data.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
           // }
         })
     },
@@ -192,7 +192,7 @@ export default {
           author: 'support',
           type: url ? 'file' : 'text',
           id: Math.random(),
-          data: {text, file: {url: url}}
+          data: {text: url ? '' : text, file: {url: url}}
         })
       }
     },
