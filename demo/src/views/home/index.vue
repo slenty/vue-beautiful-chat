@@ -130,8 +130,9 @@ export default {
      * 2. 联调多轮对话。这个需要每轮对话的标识
      * 3. 联调图片
      * 
-     * todo： 空文本也可让用户发送
-     * 
+     * todo： 
+     * 1.空文本也可让用户发送
+     * 2. 服务器返回文本对齐，左对齐
      */
     getTextApi (message) {
       let historyList = []
@@ -154,7 +155,7 @@ export default {
           console.log('获取到文本数据=================', res)
           // debugger
        //   this.getImageApi(res.data) // 获取后端返回的文本
-            this.handleTyping('')
+            // this.handleTyping('')
           // if(res.data) {
              this.sendMessage(res.data.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
           // }
@@ -167,14 +168,15 @@ export default {
      */
     getImageApi (text) {
        let params = {
-        ASSISTANT: text
+        ASSISTANT: text,
+        system_prompt: this.prompt
       }
       console.log('调用图片接口===================', params)
       axios
         .post('https://api.thecatapi.com/v1/images/search?limit=1', params)
         .then(res => {
           console.log('获取到图片数据=================', res)
-          let imageUrl = res.data.url // 获取后端返回的图片url
+          let imageUrl = res.data.path // 获取后端返回的图片url
           this.handleTyping('')
           // debugger          
           if(res.data) {
