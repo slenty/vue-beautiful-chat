@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-import Chat from '../../dist/vue-beautiful-chat.umd.min.js'
+import Chat from './assets/vue-beautiful-chat.umd.min.js'
 import vmodal from 'vue-js-modal'
 import router from './router';
 import ElementUI from 'element-ui'
