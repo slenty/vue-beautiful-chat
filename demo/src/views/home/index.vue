@@ -146,7 +146,7 @@ export default {
       }
       let params = {
         system_prompt: this.prompt,
-        USER: message.data.text,
+        USER: message.data.text == '😄' ? '' : message.data.text,
         history: historyList
       }
       console.log('用户输入=================', params)
