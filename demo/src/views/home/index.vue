@@ -129,6 +129,7 @@ export default {
      * 1. 联调一轮对话。字段对齐, 调通接口
      * 2. 联调多轮对话。这个需要每轮对话的标识
      * 3. 联调图片
+     * 4. 前端部署
      * 
      * todo： 
      * 1.空文本也可让用户发送
@@ -140,7 +141,7 @@ export default {
         let item = this.messageList[i]
         let itemNext = this.messageList[i+1]
         if(item.author == 'me' &&  itemNext.author == 'support') {
-          historyList.push({USER: item.data.text, ASSISTANT: itemNext.data.text})
+          historyList.push({USER: item.data.text == '😄' ? '' : item.data.text, ASSISTANT: itemNext.data.text})
         }
       }
       let params = {

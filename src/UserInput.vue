@@ -224,15 +224,15 @@ export default {
       if (file) {
         this._submitTextWhenFile(event, text, file)
       } else {
-        if (text && text.length > 0) {
+        // if (text && text.length > 0) {
           this._checkSubmitSuccess(
             this.onSubmit({
               author: 'me',
               type: 'text',
-              data: {text}
+              data: {text: (text && text.length) > 0 ? text : '😄'}
             })
           )
-        }
+        // }
       }
     },
     _submitTextWhenFile(event, text, file) {

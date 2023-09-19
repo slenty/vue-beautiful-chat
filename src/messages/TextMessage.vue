@@ -97,6 +97,7 @@ export default {
   -webkit-font-smoothing: subpixel-antialiased;
   .sc-message--text-content {
     white-space: pre-wrap;
+    text-align: left;
   }
   &:hover .sc-message--toolbox {
     left: -20px;
