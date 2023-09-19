@@ -155,7 +155,7 @@ export default {
           console.log('获取到文本数据=================', res)
           // debugger
            this.getImageApi(res.data.ASSISTANT) // 获取后端返回的文本
-            // this.handleTyping('')
+           this.handleTyping('')
           // if(res.data) {
            this.sendMessage(res.data.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
           // }
@@ -167,11 +167,13 @@ export default {
      * 因为ai图片接口太慢了，所以另起一个接口
      */
     getImageApi (text) {
+       this.handleTyping('testeeet')
        let params = {
         ASSISTANT: text,
         system_prompt: this.prompt
       }
       console.log('调用图片接口===================', params)
+
       axios
         .post('https://api.thecatapi.com/v1/images/search?limit=1', params)
         .then(res => {
