@@ -10,7 +10,7 @@
         </el-form-item>
     
        <el-form-item>
-         Let's chat
+         <span style="font-size: 20px"> Let's chat</span>
          <beautiful-chat
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :close="closeChat"
