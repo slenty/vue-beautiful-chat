@@ -5,12 +5,12 @@
       <el-form :inline="false">
         <el-form-item >
           <!-- Prompt:  -->
-          <el-input style="width: 500px" v-model="prompt" type="textarea" rows="5" placeholder="请输入prompt"></el-input>
+          <el-input style="width: 500px" v-model="prompt" type="textarea" rows="5" placeholder="please write prompt..."></el-input>
           <!-- <el-button style="margin-left: 20px" type="primary">确认</el-button> -->
         </el-form-item>
     
        <el-form-item>
-         开始聊天
+         Let's chat
          <beautiful-chat
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :close="closeChat"
@@ -84,6 +84,7 @@ import Header from '../../Header.vue'
 import Footer from '../../Footer.vue'
 import TestArea from '../../TestArea.vue'
 import availableColors from '../../colors'
+import titleImageUrl from '../../assets/WizardLM.png'
 
 export default {
   name: 'Server',
@@ -95,7 +96,7 @@ export default {
   data() {
     return {
       participants: chatParticipants,
-      titleImageUrl: 'https://a.slack-edge.com/66f9/img/avatars-teams/ava_0001-34.png',
+      titleImageUrl: titleImageUrl,
       messageList: messageHistory,
       newMessagesCount: 0,
       isChatOpen: true,

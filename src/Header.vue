@@ -72,6 +72,7 @@ export default {
   border-radius: 50%;
   align-self: center;
   padding: 10px;
+  height: 50px;
 }
 
 .sc-header--title {
@@ -80,6 +81,7 @@ export default {
   flex: 1;
   user-select: none;
   font-size: 20px;
+  margin-left: -5%
 }
 
 .sc-header--title.enabled {
