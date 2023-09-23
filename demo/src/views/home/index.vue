@@ -3,14 +3,14 @@
     <!-- HELLO WORLD -->
     <div style="text-align: center; padding-top: 30px">
       <el-form :inline="false">
-        <el-form-item >
-          <!-- Prompt:  -->
-          <el-input style="width: 500px" v-model="prompt" type="textarea" rows="5" placeholder="please write prompt..."></el-input>
-          <!-- <el-button style="margin-left: 20px" type="primary">确认</el-button> -->
+        <el-form-item>
+          <!-- <span style="font-size: 20px;vertical-align: top"> World Setting: </span> -->
+          <el-input style="width: 500px" v-model="prompt" type="textarea" rows="5" placeholder="Please write the prompt..."></el-input>
+        
         </el-form-item>
-    
+       <div style="font-size: 20px; margin-top: -10px; margin-bottom: 50px"> World Setting</div>
        <el-form-item>
-         <span style="font-size: 20px"> Let's chat</span>
+       
          <beautiful-chat
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :close="closeChat"
@@ -203,11 +203,11 @@ export default {
     },
     onMessageWasSent(message) {
        if(!this.prompt) {
-        this.$message.warning('请输入prompt')
+        this.$message.warning('Plese write the prompt')
         return
       }
       if(this.showTypingIndicator) {
-        this.$message.warning('请稍后，服务器正在响应...')
+        this.$message.warning('Wait a second, the server is responding...')
         return
       }
       // debugger

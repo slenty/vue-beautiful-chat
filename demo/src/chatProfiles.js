@@ -1,3 +1,6 @@
+
+import titleImageUrl from './assets/WizardLM.png'
+
 export default [
   {
     id: 'mattmezza',
@@ -7,6 +10,8 @@ export default [
   {
     id: 'support',
     name: 'Assistant',
-    imageUrl: 'https://st4.depositphotos.com/10050552/24321/i/450/depositphotos_243216644-stock-illustration-wizard-and-dragon-scene-3d.jpg'
+    imageUrl: titleImageUrl
   }
 ]
+
+

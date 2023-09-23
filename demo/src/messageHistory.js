@@ -1,5 +1,8 @@
 export default [
-  { type: 'text', author: `support`, id: 16, data: { text: `How can I help you?` } }
+  { type: 'text', author: `support`, id: 16, data: { text: `Welcome to the wizarding world, where you can play in the metaverse and do anything you want. Please type an action or find a target, like this:
+  - I want to go to school and take a math exam.
+  - Today, you meet the dark wizard Lord Voldemort at Hogwarts.
+Tips: Each image generation will take about 20 seconds, but the return speed of images at the same time is also affected by queue ranking. When your image return time exceeds the normal speed, you may be ranked lower in the queue. Please wait for a moment or refresh and try again.` } }
 ]
 
 
