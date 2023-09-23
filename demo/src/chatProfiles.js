@@ -9,7 +9,7 @@ export default [
   },
   {
     id: 'support',
-    name: 'Assistant',
+    name: 'WizardVerse',
     imageUrl: titleImageUrl
   }
 ]

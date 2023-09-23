@@ -1,8 +1,7 @@
 export default [
-  { type: 'text', author: `support`, id: 16, data: { text: `Welcome to the wizarding world, where you can play in the metaverse and do anything you want. Please type an action or find a target, like this:
-  - I want to go to school and take a math exam.
-  - Today, you meet the dark wizard Lord Voldemort at Hogwarts.
-Tips: Each image generation will take about 20 seconds, but the return speed of images at the same time is also affected by queue ranking. When your image return time exceeds the normal speed, you may be ranked lower in the queue. Please wait for a moment or refresh and try again.` } }
+  { type: 'text', author: `support`, id: 16, data: { text: `Welcome to the WizardVerse, where you can play in the metaverse and do anything you want. Please type an action or find a target, like this:
+  - One day, when I'm almost eleven years old, I receive a letter addressed to me in green ink. It is delivered by an owl, which is very strange. I open the letter and read.
+  - Today, I meet the dark wizard Lord Voldemort at Hogwarts.` } }
 ]
 
 

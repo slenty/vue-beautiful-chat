@@ -5,8 +5,7 @@
       <el-form :inline="false">
         <el-form-item>
           <!-- <span style="font-size: 20px;vertical-align: top"> World Setting: </span> -->
-          <el-input style="width: 500px" v-model="prompt" type="textarea" rows="5" placeholder="Please write the prompt..."></el-input>
-        
+          <el-input style="width: 50%" v-model="prompt" type="textarea" rows="6" :placeholder="placeholder"></el-input>
         </el-form-item>
        <div style="font-size: 20px; margin-top: -10px; margin-bottom: 50px"> World Setting</div>
        <el-form-item>
@@ -17,7 +16,7 @@
         :colors="colors"
         :is-open="isChatOpen"
         :message-list="messageList"
-        title="Assistant Wizard"
+        title="WizardVerse"
         :message-styling="messageStyling"
         :new-messages-count="newMessagesCount"
         :on-message-was-sent="onMessageWasSent"
@@ -107,7 +106,8 @@ export default {
       alwaysScrollToBottom: true,
       messageStyling: true,
       userIsTyping: false,
-      prompt: ''
+      prompt: '',
+      placeholder: 'You are a world simulator, and your main task is to create a virtual world entirely through language. This world is the magical world of "Harry Potter". The user takes on the persona of a character named Harry Potter in this world. Harry embarked on an adventure on Privet Drive, your home in a non magical world. However, when Harry received a letter from Hogwarts School of Witchcraft and Wizardry, your life was about to change.'
     }
   },
   computed: {
@@ -203,7 +203,7 @@ export default {
     },
     onMessageWasSent(message) {
        if(!this.prompt) {
-        this.$message.warning('Plese write the prompt')
+        this.$message.warning('Plese write the World Setting')
         return
       }
       if(this.showTypingIndicator) {
