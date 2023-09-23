@@ -4,12 +4,15 @@
     <div style="text-align: center; padding-top: 30px">
       <el-form :inline="false">
         <el-form-item>
-          <!-- <span style="font-size: 20px;vertical-align: top"> World Setting: </span> -->
+          <el-tag class="world-setting-tag" v-for="(label, key) in worldSettingTag" :key="key" :value="key" :label="label" @click="handleDefaultWorld(label)">{{key}}</el-tag>
+        </el-form-item>
+
+        <el-form-item>
           <el-input style="width: 50%" v-model="prompt" type="textarea" rows="6" :placeholder="placeholder"></el-input>
         </el-form-item>
        <div style="font-size: 20px; margin-top: -10px; margin-bottom: 50px"> World Setting</div>
-       <el-form-item>
        
+       <el-form-item>
          <beautiful-chat
         :always-scroll-to-bottom="alwaysScrollToBottom"
         :close="closeChat"
@@ -84,6 +87,7 @@ import Footer from '../../Footer.vue'
 import TestArea from '../../TestArea.vue'
 import availableColors from '../../colors'
 import titleImageUrl from '../../assets/WizardLM.png'
+import { worldSettingTag } from '../../config/index'
 
 export default {
   name: 'Server',
@@ -107,7 +111,8 @@ export default {
       messageStyling: true,
       userIsTyping: false,
       prompt: '',
-      placeholder: 'You are a world simulator, and your main task is to create a virtual world entirely through language. This world is the magical world of "Harry Potter". The user takes on the persona of a character named Harry Potter in this world. Harry embarked on an adventure on Privet Drive, your home in a non magical world. However, when Harry received a letter from Hogwarts School of Witchcraft and Wizardry, your life was about to change.'
+      placeholder: 'You are a world simulator, and your main task is to create a virtual world entirely through language. This world is the magical world of "Harry Potter". The user takes on the persona of a character named Harry Potter in this world. Harry embarked on an adventure on Privet Drive, your home in a non magical world. However, when Harry received a letter from Hogwarts School of Witchcraft and Wizardry, your life was about to change.',
+      worldSettingTag: worldSettingTag
     }
   },
   computed: {
@@ -120,6 +125,7 @@ export default {
   },
   created() {
     this.setColor('blue')
+    console.log('worldSettingTag=====', worldSettingTag)
   },
   mounted() {
     this.messageList.forEach((x) => (x.liked = false))
@@ -265,12 +271,20 @@ export default {
       var msg = this.messageList[m]
       msg.liked = !msg.liked
       this.$set(this.messageList, m, msg)
+    },
+
+    handleDefaultWorld(word) {
+      this.prompt = word
     }
   }
 }
 </script>
 
 <style>
+
+.world-setting-tag {
+  cursor: pointer;
+}
 body {
   padding: 0px;
   margin: 0px;
