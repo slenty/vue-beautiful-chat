@@ -11,7 +11,7 @@
           <el-input style="width: 50%" v-model="prompt" type="textarea" rows="6" :placeholder="placeholder"></el-input>
         </el-form-item>
        <div style="font-size: 20px; margin-top: -10px; margin-bottom: 50px"> World Setting</div>
-       
+
        <el-form-item>
          <beautiful-chat
         :always-scroll-to-bottom="alwaysScrollToBottom"
@@ -284,6 +284,7 @@ export default {
 
 .world-setting-tag {
   cursor: pointer;
+  margin-right: 10px;
 }
 body {
   padding: 0px;
