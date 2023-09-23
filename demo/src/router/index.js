@@ -18,11 +18,15 @@ const routes = [
     name: 'Home',
     component: () => import('../views/home/index'),
   },
+  // {
+  //   path: '/server',
+  //   name: 'Server',
+  //   component: () => import('../views/server/index'),
+  // },
   {
-    path: '/server',
-    name: 'Server',
-    component: () => import('../views/server/index'),
-  },
+    path: '*', // 兜底，重定向路径
+    redirect: '/'
+  }
 
 ];
 
