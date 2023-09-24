@@ -8,7 +8,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-input style="width: 50%" v-model="prompt" type="textarea" rows="6" :placeholder="placeholder"></el-input>
+          <el-input style="width: 50%" v-model="prompt" type="textarea" rows="6" :placeholder="worldPlaceholder"></el-input>
         </el-form-item>
        <div style="font-size: 20px; margin-top: -10px; margin-bottom: 50px"> World Setting</div>
 
@@ -87,7 +87,7 @@ import Footer from '../../Footer.vue'
 import TestArea from '../../TestArea.vue'
 import availableColors from '../../colors'
 import titleImageUrl from '../../assets/WizardLM.png'
-import { worldSettingTag } from '../../config/index'
+import { worldSettingTag, worldPlaceholder } from '../../config/index'
 
 export default {
   name: 'Server',
@@ -111,7 +111,7 @@ export default {
       messageStyling: true,
       userIsTyping: false,
       prompt: '',
-      placeholder: 'You are a world simulator, and your main task is to create a virtual world entirely through language. This world is the magical world of "Harry Potter". The user takes on the persona of a character named Harry Potter in this world. Harry embarked on an adventure on Privet Drive, your home in a non magical world. However, when Harry received a letter from Hogwarts School of Witchcraft and Wizardry, your life was about to change.',
+      worldPlaceholder: worldPlaceholder,
       worldSettingTag: worldSettingTag
     }
   },
@@ -273,8 +273,8 @@ export default {
       this.$set(this.messageList, m, msg)
     },
 
-    handleDefaultWorld(word) {
-      this.prompt = word
+    handleDefaultWorld(world) {
+      this.prompt = world
     }
   }
 }
