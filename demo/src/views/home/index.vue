@@ -22,7 +22,7 @@
         title="WizardVerse"
         :message-styling="messageStyling"
         :new-messages-count="newMessagesCount"
-        :on-message-was-sent="onMessageWasSent"
+        :on-message-was-sent="beforeMessageWasSentCheck"
         :open="openChat"
         :participants="participants"
         :show-close-button="false"
@@ -111,8 +111,10 @@ export default {
       messageStyling: true,
       userIsTyping: false,
       prompt: '',
+      oldPrompt: '',
       worldPlaceholder: worldPlaceholder,
-      worldSettingTag: worldSettingTag
+      worldSettingTag: worldSettingTag,
+      isStartOver: false
     }
   },
   computed: {
@@ -143,6 +145,8 @@ export default {
      * 2. 服务器返回文本对齐，左对齐
      */
     getTextApi (message) {
+      this.oldPrompt = this.prompt
+      this.isStartOver = false
       let historyList = []
       for(let i = 1 ; i < this.messageList.length - 1; i++ ){
         let item = this.messageList[i]
@@ -162,8 +166,10 @@ export default {
         .then(res => {
           console.log('获取到文本数据=================', res)
            this.handleTyping('')
-           this.sendMessage(res.data.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
-           this.getImageApi(res.data.ASSISTANT) // 获取后端返回的文本
+           if(res.data && !this.isStartOver) { 
+             this.sendMessage(res.data.ASSISTANT) // 参数是后端返回的数据文本，大概需要经过一些处理
+             this.getImageApi(res.data.ASSISTANT) // 获取后端返回的文本
+           }
         })
     },
 
@@ -186,7 +192,7 @@ export default {
           let imageUrl = res.data.path // 获取后端返回的图片url
           this.handleTyping('')
           // debugger          
-          if(res.data) {
+          if(res.data && !this.isStartOver) {
              this.sendMessage(text, imageUrl)
           }
         })
@@ -207,11 +213,34 @@ export default {
       this.showTypingIndicator =
         text.length > 0 ? this.participants[this.participants.length - 1].id : ''
     },
+
+    beforeMessageWasSentCheck(message) {
+      if(this.oldPrompt && this.oldPrompt != this.prompt && this.messageList.length > 1){
+        this.$confirm('The world setting is changed, start over?', 'HINT', {
+          confirmButtonText: 'YES',
+          cancelButtonText: 'NO',
+          type: 'warning'
+        }).then(() => {
+          this.messageList = this.messageList.slice(0, 1)
+          this.oldPrompt = this.prompt
+          this.handleTyping('')
+          this.isStartOver = true
+        }).catch(() => {
+          this.prompt = this.oldPrompt  
+          this.isStartOver = false
+          this.onMessageWasSent(message)
+        });
+      } else {
+        this.onMessageWasSent(message)
+      }
+    },
+
     onMessageWasSent(message) {
        if(!this.prompt) {
         this.$message.warning('Plese write the World Setting')
         return
       }
+
       if(this.showTypingIndicator) {
         this.$message.warning('Wait a second, the server is responding...')
         return
